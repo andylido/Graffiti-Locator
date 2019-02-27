@@ -44,17 +44,20 @@
       
     <!-- Content Display For Each Page -->
     <div class="content" id="search">
+        <!-- User Inputs -->
         <h2 class="text-center section-heading text-uppercase">Please Input Ward and Status</h2><br>
         <div class="col-lg-12 row">
-              <div class="col-md-6 text-center">
-                  <input class="form-control" type="number" id="ward" placeholder="Ward #" required="required"><br>
-              </div>
-              <div class="col-md-6 text-center">
-                  <textarea class="form-control" type="text" id="status" placeholder="Status" required="required"></textarea><br>
-              </div>
-              <div class="col-lg-12 text-center">
-                <button id="enter" class="btn btn-primary btn-xl text-uppercase" style="border-color: white">Enter</button>
-              </div>
+            <div class="col-md-6">
+                Ward:
+                <input class="form-control" type="number" id="ward" placeholder="i.e. 1234" required="required"><br>
+            </div>
+            <div class="col-md-6">
+                Status:
+                <input class="form-control" type="text" id="status" placeholder="i.e. not completed" required="required"><br>
+            </div>
+            <div class="col-lg-12 text-center">
+                <button id="search" class="btn btn-primary btn-xl text-uppercase" style="border-color: white">Search</button>
+            </div>
         </div>
         
     </div>
@@ -85,6 +88,16 @@
     <script>
       $(document).ready(function() {
           
+        var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
+          
+        $("#search").on("click", function() {
+        $("#list").empty(); // clear the display
+        var searchString = $("#ward").val();
+        console.log(searchString);
+        var url = endpoint + "&ward=" + searchString;
+        console.log(url);
+        });
+            
         $("#search").show();
         function hideScreens() {
           $(".content").hide();
