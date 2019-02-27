@@ -63,7 +63,15 @@
     </div>
       
     <div class="content" id="list">
-        List Page
+        <div class="card template" style="width: 18rem;">
+		  <div class="card-body">
+			<h5 class="card-title">Card title</h5>
+			<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+			<p class="card-text">Card Content</p>
+			<a href="#" class="card-link">Card link</a>
+			<a href="#" class="card-link">Another link</a>
+		  </div>
+        </div>
     </div>
       
     <div class="content" id="map">
@@ -84,8 +92,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
     
+
     <!-- Document Ready --> 
     <script>
+      // street address
+      // service request number
+      // where the graffiti is located
+      // what type of surface
+      // date created
+      // status
+      // completion date (if applicable)
+        
       $(document).ready(function() {
           
         var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
