@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="mdc-typography">
+<html>
     
   <head>
     <meta charset="utf-8">
@@ -61,6 +61,15 @@
         </div>
         
     </div>
+    
+    <div class="content" id="about">
+        <h1>About</h1><br>
+        <h2>Graffiti Locator by AL</h2><br>
+        <p>Welcome to Graffiti Locator, this intuitive application allows users to search by ward and status of graffitis to help removers locate the position of the art that needs to be taken down via google maps.</p> 
+        <p>The Search tab will take you to the page where you will input the information.</p> 
+        <p>Then, the list tab will take you to the page where it will list all street address, service request number,  graffati location, type of surface, date created, status and completion date (if applicable).</p> 
+        <p>Finally, the map tab will take you to the page where google maps will visually show you where all the graffatis are located with marker pinpoint for further detail.</p>
+    </div>
       
     <div class="content" id="list">
         <div class="card template" style="width: 18rem;">
@@ -74,18 +83,9 @@
         </div>
     </div>
       
-    <div class="content" id="map">
-        Map Page
+    <div class="content" id="map" style="height: 400px; width: 500px">
     </div>
     
-    <div class="content" id="about">
-        <h1>About</h1><br>
-        <h2>Graffiti Locator by AL</h2><br>
-        <p>Welcome to Graffiti Locator, this intuitive application allows users to search by ward and status of graffitis to help removers locate the position of the art that needs to be taken down via google maps.</p> 
-        <p>The Search tab will take you to the page where you will input the information.</p> 
-        <p>Then, the list tab will take you to the page where it will list all street address, service request number,  graffati location, type of surface, date created, status and completion date (if applicable).</p> 
-        <p>Finally, the map tab will take you to the page where google maps will visually show you where all the graffatis are located with marker pinpoint for further detail.</p>
-    </div>
       
       
     <!-- Scripts -->
@@ -131,13 +131,45 @@
     <!-- Service Worker -->  
     <script>
         // register the service worker for offline use
-        if('serviceWorker' in navigator) {
-          navigator.serviceWorker
-                   .register('./sw.js')
-                   .then(function() { console.log("Service Worker Registered"); });
-        }
+        //if('serviceWorker' in navigator) {
+        //  navigator.serviceWorker
+        //           .register('./sw.js')
+        //           .then(function() { console.log("Service Worker Registered"); });
+        //}
     </script>
-      
+    
+    <!-- Google Map and Markers --> 
+    <script>
+        // Initialize and add the map
+        function initMap() {
+            // The location of Uluru
+            var uluru = {lat: 41.8781, lng: -87.6298};
+            // The map, centered at Uluru
+            var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 13, center: uluru});
+            // The marker, positioned at Uluru
+            //$.get("https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5", function(response))
+            //marker.addListener('click', function() {
+            //    infowindow.open(map, marker);
+            //});
+        }
+        
+        //function createMarkers (data) {
+        //    $.each(data, function(i,v) {
+        //        infowindow.open(map,marker);
+        //        var infowindow = new google.maps.InfoWindow({
+        //            content: "Chicago"
+        //        });
+        //        marker.addListener('click', function() {
+        //            infowindow.open(map, marker);
+        //        });
+        //    });
+        //}
+    </script>
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCHtlXJLYGtdVwxVeVRE_qwY6ADIBOTpvY&callback=initMap">
+    </script>  
       
   </body>
 </html>
