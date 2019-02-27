@@ -17,7 +17,7 @@
 
 version = '1.0';
 
-let cacheName = 'AL_' + version;
+let cacheName = 'pwaBasic_' + version;
 
 self.addEventListener('install', e => {
   let timeStamp = Date.now();
