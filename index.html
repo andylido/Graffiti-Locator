@@ -46,25 +46,21 @@
     <div class="content" id="search">
         <!-- User Inputs -->
         <h2 class="text-center section-heading text-uppercase">Please Input Ward and Status</h2><br>
-        <div class="col-lg-12 row">
+        <div class="col-md-12">
             <div class="col-md-6">
                 Ward:
                 <input class="form-control" type="number" id="ward" placeholder="i.e. 1234" required="required"/><br>
             </div>
             <div class="col-md-6">
                 Status:
-                <div class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="border-color: gainsboro">
-                            Dropdown
-                            <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                            <li><a>Open</a></li>
-                            <li><a>Completed</a></li>
-                    </ul>
-                </div>
+                <br>
+                 <select id=status>
+                    <option value="Open">Open</option>
+                    <option value="Completed">Completed</option>
+                </select> 
             </div>
-            <div class="col-lg-12 text-center">
+            <br>
+            <div class="col-lg-12">
                 <button id="search" class="btn btn-primary btn-xl text-uppercase" style="border-color: white">Search</button>
             </div>
         </div>
@@ -118,11 +114,13 @@
         var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
           
         $("#search").on("click", function() {
-        $("#list").empty(); // clear the display
-        var searchString = $("#ward").val();
-        console.log(searchString);
-        var url = endpoint + "&ward=" + searchString;
-        console.log(url);
+            $("#list").empty(); // clear the display
+            var searchString = $("#ward").val();
+            var searchStatus = $("#status").val();
+            //console.log(searchString);
+            //console.log(searchStatus);
+            var url = endpoint + "&ward=" + searchString + "&status=" + searchStatus;
+            console.log(url);
         });
             
         $("#search").show();
