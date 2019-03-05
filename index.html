@@ -45,7 +45,7 @@
     <!-- Content Display For Each Page -->
     <div class="content" id="search">
         <!-- User Inputs -->
-        <h2 class="text-center section-heading text-uppercase">Please Input Ward and Status</h2><br>
+        <h2 class="section-heading text-uppercase">Please Input Ward and Status</h2><br>
         <div class="col-md-12">
             <div class="col-md-6">
                 Ward:
@@ -115,11 +115,11 @@
           
         $("#search").on("click", function() {
             $("#list").empty(); // clear the display
-            var searchString = $("#ward").val();
+            var searchWard = $("#ward").val();
             var searchStatus = $("#status").val();
             //console.log(searchString);
             //console.log(searchStatus);
-            var url = endpoint + "&ward=" + searchString + "&status=" + searchStatus;
+            var url = endpoint + "&status=" + searchStatus + "&ward=" + searchWard;
             console.log(url);
         });
             
