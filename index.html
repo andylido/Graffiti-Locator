@@ -111,6 +111,8 @@
         
       $(document).ready(function() {
         
+        $("#search").show();  
+          
         var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
           
         $("#search").on("click", function() {
@@ -121,18 +123,44 @@
             //console.log(searchStatus);
             var url = endpoint + "&status=" + searchStatus + "&ward=" + searchWard;
             console.log(url);
-        });
             
-        $("#search").show();
+            $.get(url, function(response) {
+                //console.log(response);
+                $("#cards").append("<h2>Your query returned " + response.length + " records.</h2>");
+                var data = response;
+                $.each(data, function(i,v){
+                    console.log(i,v);
+                    // clone card
+                    var clone = $(".template").clone();
+                    // update values
+                    clone.find(".card-title").text(v.dba_name);
+                    clone.find(".card-title").addClass(v.results);
+                    clone.find(".card-title").attr("data-results", v.results);
+                    clone.find(".card-subtitle").text(v.facility_type);
+            
+                    if (v.violations) {
+                        //clone.find(".card-text").text(v.violations);
+                    } else {
+                        clone.find(".card-text").text("")
+                    }
+                    
+                    clone.removeClass("template")
+                    // insert into DOM
+                    $("#cards").append(clone);
+                });
+            });
+        });
+          
         function hideScreens() {
           $(".content").hide();
         }
+          
         $(".nav-link").on("click", function(){
           hideScreens();
           var target = $(this).attr("href");
           $(target).show();
         });
-        
+          
       });
     </script>
       
