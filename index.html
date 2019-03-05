@@ -53,13 +53,24 @@
             </div>
             <div class="col-md-6">
                 Status:
-                <input class="form-control" type="text" id="status" placeholder="i.e. not completed" required="required"><br>
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            Dropdown
+                            <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                    </ul>
+                </div>
             </div>
             <div class="col-lg-12 text-center">
                 <button id="search" class="btn btn-primary btn-xl text-uppercase" style="border-color: white">Search</button>
             </div>
         </div>
-        
     </div>
     
     <div class="content" id="about">
@@ -104,7 +115,7 @@
       // completion date (if applicable)
         
       $(document).ready(function() {
-          
+        
         var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
           
         $("#search").on("click", function() {
@@ -124,7 +135,7 @@
           var target = $(this).attr("href");
           $(target).show();
         });
-          
+        
       });
     </script>
       
