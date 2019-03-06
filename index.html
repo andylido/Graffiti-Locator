@@ -11,6 +11,9 @@
 			display: none;
 			margin: 1em;
 		}
+        .label{
+            font-weight: bold;
+        }
 	</style> 
     <title>Graffiti Locater by AL</title>
   </head>
@@ -77,15 +80,15 @@
     </div>
       
     <div class="content" id="list"></div>
-        <div class="card template" style="width: 18rem;">
+        <div class="card template" style="width: 20rem;">
 		  <div class="card-body">
-			<h5 class="requestNum">Card title</h5>
-			<h6 class="address mb-2 text-muted">Card subtitle</h6>
-			<p class="where">Card Content</p>
-            <p class="surface">Card Content</p>
-            <p class="dateCreated">Card Content</p>
-            <p class="status">Card Content</p>
-            <p class="completionDate">Not Completed</p>
+              <span><p class="label">Request:</p></span><span> <p class="requestNum">NA</p></span>
+			<span><p class="label">Address:</p><p class="address mb-2 text-muted">NA</p></span>
+			<span><p class="label">Location:</p><p class="where">NA</p></span>
+            <p class="label">Surface: </p><p class="surface">NA</p>
+            <p class="label">Date Created:</p><p class="dateCreated">NA</p>
+            <p class="label">Status</p><p class="status">NA</p>
+            <p class="label">Completion Date:</p><p class="completionDate">Not Completed</p>
 			<a href="#" class="card-link">Card link</a>
 			<a href="#" class="card-link">Another link</a>
 		  </div>
@@ -160,7 +163,7 @@
                     clone.removeClass("template")
                     // insert into DOM
                     $("#list").append(clone);
-                    console.log(clone);
+                    //console.log(clone);
                 });
             });
             hideScreens();
