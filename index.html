@@ -94,7 +94,7 @@
       
       
     <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
@@ -115,14 +115,14 @@
           
         var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
           
-        $("#search").on("click", function() {
+        $('#search').click(function() {
             $("#list").empty(); // clear the display
             var searchWard = $("#ward").val();
             var searchStatus = $("#status").val();
             //console.log(searchString);
             //console.log(searchStatus);
             var url = endpoint + "&status=" + searchStatus + "&ward=" + searchWard;
-            console.log(url);
+            //console.log(url);
             
             $.get(url, function(response) {
                 //console.log(response);
@@ -133,20 +133,14 @@
                     // clone card
                     var clone = $(".template").clone();
                     // update values
-                    clone.find(".card-title").text(v.dba_name);
-                    clone.find(".card-title").addClass(v.results);
-                    clone.find(".card-title").attr("data-results", v.results);
-                    clone.find(".card-subtitle").text(v.facility_type);
-            
-                    if (v.violations) {
-                        //clone.find(".card-text").text(v.violations);
-                    } else {
-                        clone.find(".card-text").text("")
-                    }
+                    clone.find(".card-title").text(v.street_address);
+                    //clone.find(".card-title").addClass(v.results);
+                    //clone.find(".card-title").attr("data-results", v.results);
+                    //clone.find(".card-subtitle").text(v.facility_type);
                     
                     clone.removeClass("template")
                     // insert into DOM
-                    $("#cards").append(clone);
+                    $("#list").append(clone);
                 });
             });
         });
