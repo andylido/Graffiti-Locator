@@ -77,11 +77,15 @@
     </div>
       
     <div class="content" id="list">
-        <div class="card template" style="width: 18rem;">
+        <div class="template" style="width: 18rem;">
 		  <div class="card-body">
-			<h5 class="card-title">Card title</h5>
-			<h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-			<p class="card-text">Card Content</p>
+			<h5 class="requestNum">Card title</h5>
+			<h6 class="address mb-2 text-muted">Card subtitle</h6>
+			<p class="where">Card Content</p>
+            <p class="surface">Card Content</p>
+            <p class="dateCreated">Card Content</p>
+            <p class="status">Card Content</p>
+            <p class="completionDate">Not Completed</p>
 			<a href="#" class="card-link">Card link</a>
 			<a href="#" class="card-link">Another link</a>
 		  </div>
@@ -116,7 +120,7 @@
         var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
           
         $('#search').click(function() {
-            $("#list").empty(); // clear the display
+            //$("#list").empty(); // clear the display
             var searchWard = $("#ward").val();
             var searchStatus = $("#status").val();
             //console.log(searchString);
@@ -126,19 +130,24 @@
             
             $.get(url, function(response) {
                 //console.log(response);
-                $("#cards").append("<h2>Your query returned " + response.length + " records.</h2>");
+                //$("#cards").append("<h2>Your query returned " + response.length + " records.</h2>");
                 var data = response;
                 $.each(data, function(i,v){
                     console.log(i,v);
                     // clone card
                     var clone = $(".template").clone();
                     // update values
-                    clone.find(".card-title").text(v.street_address);
+                    clone.find(".requestNum").text(v.service_request_number);
                     //clone.find(".card-title").addClass(v.results);
                     //clone.find(".card-title").attr("data-results", v.results);
-                    //clone.find(".card-subtitle").text(v.facility_type);
+                    clone.find(".address").text(v.street_address);
+                    clone.find(".where").text(v.where_is_the_graffiti_located_);
+                    clone.find(".surface").text(v.what_type_of_surface_is_the_graffiti_on_);
+                    clone.find(".dateCreated").text(v.creation_date);
+                    clone.find(".status").text("Status: ", v.status);
+                    clone.find(".completionDate").text("Date completed: ", v.completion_date);
                     
-                    clone.removeClass("template")
+                    clone.removeClass(".template")
                     // insert into DOM
                     $("#list").append(clone);
                 });
@@ -154,7 +163,7 @@
           var target = $(this).attr("href");
           $(target).show();
         });
-          
+        
       });
     </script>
       
