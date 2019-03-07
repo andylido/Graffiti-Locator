@@ -188,38 +188,34 @@
             var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
 
             var url = endpoint + "&status=" + y + "&ward=" + x;
-            // The location of Uluru
+            // The location of Chicago
             var uluru = {lat: 41.8781, lng: -87.6298};
-            // The map, centered at Uluru
+            // The map, centered at Chicago
             var map = new google.maps.Map(
             document.getElementById('map'), {zoom: 10, center: uluru});
-            // The marker, positioned at Uluru
+            //Get data from ajax call
             $.get(url, function(response){
                 var data = response;
                 $.each(data, function(i,v){
-                    //console.log(i,v);
                     // clone card
-                    var clone = $(".template").clone();
-                    // update values
-                    clone.find(".requestNum").text(v.service_request_number);
-                    //clone.find(".template").addClass(v.service_request_number);
-                    //clone.find(".template").attr("data-results", v.service_request_number);
-                    clone.find(".address").text(v.street_address);
-                    clone.find(".where").text(v.where_is_the_graffiti_located_);
-                    clone.find(".surface").text(v.what_type_of_surface_is_the_graffiti_on_);
-                    clone.find(".dateCreated").text(v.creation_date);
-                    clone.find(".status").text(v.status);
-                    clone.find(".completionDate").text(v.completion_date);
+                    var req = v.service_request_number;
+                    var add = v.street_address;
+                    var loca = v.where_is_the_graffiti_located_;
+                    var surf = v.what_type_of_surface_is_the_graffiti_on_;
+                    var creDat = v.creation_date;
+                    var stat = v.status;
+                    var comDat = v.completion_date;
                     
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(parseFloat(v.latitude),parseFloat(v.longitude)),
                         map: map,
-                        title: 'Click Me '
+                        title: add + '-' + stat
                     });
+                    var contentString = req + add + loca + surf + creDat + stat + comDat;
                     // To add the marker to the map, call setMap();
                     google.maps.event.addListener(marker, 'click', function() {
                             infowindow = new google.maps.InfoWindow({
-                                content: 'Hello, World!!'
+                                content: contentString
                             });
                             infowindow.open(map, marker);
                     });     
