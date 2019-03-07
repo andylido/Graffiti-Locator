@@ -127,8 +127,7 @@
           var target = $(this).attr("href");
           $(target).show();
         });
-        
-          
+         
           
         $("#searchbtn").on("click", function() {
             $("#list").empty();
@@ -160,10 +159,10 @@
                     clone.find(".status").text(v.status);
                     clone.find(".completionDate").text(v.completion_date);
                     
+                    // remove the class "template" to get it tbe unhidden
                     clone.removeClass("template")
                     // insert into DOM
                     $("#list").append(clone);
-                    //console.log(clone);
                 });
             });
             hideScreens();
@@ -184,7 +183,7 @@
     
     <!-- Google Map and Markers --> 
     <script>
-        // Initialize and add the map
+        
         function initMap() {
             // The location of Uluru
             var uluru = {lat: 41.8781, lng: -87.6298};
@@ -198,17 +197,48 @@
             //});
         }
         
-        //function createMarkers (data) {
-        //    $.each(data, function(i,v) {
-        //        infowindow.open(map,marker);
-        //        var infowindow = new google.maps.InfoWindow({
-        //            content: "Chicago"
-        //        });
-        //        marker.addListener('click', function() {
-        //            infowindow.open(map, marker);
-        //        });
-        //    });
-        //}
+        $("#searchbtn").on("click", function() {        
+            var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
+            
+            var searchWard = $("#ward").val();
+            var searchStatus = $("#status").val();
+            //console.log(searchString);
+            //console.log(searchStatus);
+            var url = endpoint + "&status=" + searchStatus + "&ward=" + searchWard;
+            console.log(url);
+            
+            $.get(url, function(response) {
+                //console.log(response);
+                //$("#cards").append("<h2>Your query returned " + response.length + " records.</h2>");
+                var data = response;
+                $.each(data, function(i,v){
+                    //console.log(i,v);
+                    // clone card
+                    var clone = $(".template").clone();
+                    // update values
+                    clone.find(".requestNum").text(v.service_request_number);
+                    //clone.find(".template").addClass(v.service_request_number);
+                    //clone.find(".template").attr("data-results", v.service_request_number);
+                    clone.find(".address").text(v.street_address);
+                    clone.find(".where").text(v.where_is_the_graffiti_located_);
+                    clone.find(".surface").text(v.what_type_of_surface_is_the_graffiti_on_);
+                    clone.find(".dateCreated").text(v.creation_date);
+                    clone.find(".status").text(v.status);
+                    clone.find(".completionDate").text(v.completion_date);
+                    
+                    // remove the class "template" to get it tbe unhidden
+                    clone.removeClass("template")
+                    // insert into DOM
+                    
+                    var position = new google.maps.LatLng(parseFloat(v.latitude),parseFloat(v.longitude));
+                    
+                    marker = new google.maps.Marker({
+                        position : position,
+                        setMap : map
+                    }); 
+                });
+            });
+        });
     </script>
 
     <script async defer
