@@ -184,32 +184,17 @@
     <!-- Google Map and Markers --> 
     <script>
         
-        function initMap() {
+        function initMap(x,y) {
+            var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
+
+            var url = endpoint + "&status=" + y + "&ward=" + x;
             // The location of Uluru
             var uluru = {lat: 41.8781, lng: -87.6298};
             // The map, centered at Uluru
             var map = new google.maps.Map(
             document.getElementById('map'), {zoom: 13, center: uluru});
             // The marker, positioned at Uluru
-            //$.get("https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5", function(response))
-            //marker.addListener('click', function() {
-            //    infowindow.open(map, marker);
-            //});
-        }
-        
-        $("#searchbtn").on("click", function() {        
-            var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
-            
-            var searchWard = $("#ward").val();
-            var searchStatus = $("#status").val();
-            //console.log(searchString);
-            //console.log(searchStatus);
-            var url = endpoint + "&status=" + searchStatus + "&ward=" + searchWard;
-            console.log(url);
-            
-            $.get(url, function(response) {
-                //console.log(response);
-                //$("#cards").append("<h2>Your query returned " + response.length + " records.</h2>");
+            $.get(url, function(response){
                 var data = response;
                 $.each(data, function(i,v){
                     //console.log(i,v);
@@ -226,18 +211,23 @@
                     clone.find(".status").text(v.status);
                     clone.find(".completionDate").text(v.completion_date);
                     
-                    // remove the class "template" to get it tbe unhidden
-                    clone.removeClass("template")
-                    // insert into DOM
-                    
-                    var position = new google.maps.LatLng(parseFloat(v.latitude),parseFloat(v.longitude));
-                    
-                    marker = new google.maps.Marker({
-                        position : position,
-                        setMap : map
-                    }); 
+                    var myLatlng = new google.maps.LatLng(parseFloat(v.latitude),parseFloat(v.longitude));
+
+                    var marker = new google.maps.Marker({
+                    position: myLatlng,
+                    title:"Hello World!"
+                    });
+
+                    // To add the marker to the map, call setMap();
+                    marker.setMap(map);
                 });
             });
+        }
+        
+        $("#searchbtn").on("click", function() {
+            var searchWard = parseInt($("#ward").val());
+            var searchStatus = $("#status").val();
+            initMap(searchWard, searchStatus);
         });
     </script>
 
