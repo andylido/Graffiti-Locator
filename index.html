@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="mdc-typography">
     
   <head>
     <meta charset="utf-8">
@@ -120,17 +120,18 @@
         Nothing To show here fam - Try searching up a ward...
     </div>
         
-      <div class="card template" style="width: 20rem;">
-          <div class="card-body">
-            <span><p class="label">Request:</p></span><span> <p class="requestNum">NA</p></span>
-			<span><p class="label">Address:</p><p class="address mb-2 text-muted">NA</p></span>
-			<span><p class="label">Location:</p><p class="where">NA</p></span>
+      <!--Card Tempate-->
+    <div class="card template" style="width: 20rem;">
+        <div class="card-body">
+            <p class="label">Request:</p><p class="requestNum">NA</p>
+            <p class="label">Address:</p><p class="address mb-2 text-muted">NA</p>
+            <p class="label">Location:</p><p class="where">NA</p>
             <p class="label">Surface: </p><p class="surface">NA</p>
             <p class="label">Date Created:</p><p class="dateCreated">NA</p>
             <p class="label">Status</p><p class="status">NA</p>
             <p class="label">Completion Date:</p><p class="completionDate">Not Completed</p>
-		  </div>
         </div>
+    </div>
       
     <div class="content container-fluid" id="map">
     </div><br>
@@ -155,14 +156,6 @@
 
     <!-- Document Ready --> 
     <script>
-      // street address
-      // service request number
-      // where the graffiti is located
-      // what type of surface
-      // date created
-      // status
-      // completion date (if applicable)
-        
       $(document).ready(function() {
         $("#search").show();
           
@@ -223,11 +216,12 @@
     <!-- Service Worker -->  
     <script>
         // register the service worker for offline use
-        //if('serviceWorker' in navigator) {
-        //  navigator.serviceWorker
-        //           .register('./sw.js')
-        //           .then(function() { console.log("Service Worker Registered"); });
-        //}
+        if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+         .register('./sw.js')
+         .then(function() { console.log('Service Worker Registered'); });
+        }
+
     </script>
     
     <!-- Google Map and Markers --> 
