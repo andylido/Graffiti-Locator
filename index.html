@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html class="mdc-typography">
-    
+<html class="mdc-typography">   
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +34,6 @@
     
     
   <body>
-
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="nav-link" href="#about">
@@ -58,11 +56,11 @@
             </ul>
         </div>
     </nav>
-    
       
-    <!-- Content Display For Each Page -->
+    <!-- Different Screens -->
     <div class="content" id="search">
-        <!-- User Inputs -->
+        
+        <!-- User Input Screen -->
         <h2 class="section-heading text-uppercase">Please Input Ward and Status</h2><br>
         <div class="col-md-12">
             <div class="col-md-2">
@@ -98,9 +96,9 @@
         </div>
     </div>
     
+    <!-- About Page Screen -->
     <div class="content" id="about">
         <h2>Graffiti Locator by AL</h2><br>
-        
         <a href="https://github.com/andylido/it202-project2" target="_blank"><img src="AL.png" class="pic"></a>
         <br><br>
         <p>Welcome to Graffiti Locator, this intuitive application allows users to search by ward and status of graffitis to help locate and track them down.</p>
@@ -120,7 +118,7 @@
         Nothing To show here fam - Try searching up a ward...
     </div>
         
-      <!--Card Tempate-->
+    <!-- Card Tempate -->
     <div class="card template" style="width: 20rem;">
         <div class="card-body">
             <p class="label">Request:</p><p class="requestNum">NA</p>
@@ -132,10 +130,10 @@
             <p class="label">Completion Date:</p><p class="completionDate">Not Completed</p>
         </div>
     </div>
-      
-    <div class="content container-fluid" id="map">
-    </div><br>
     
+    <!-- Map Screen -->  
+    <div class="content container-fluid" id="map">
+    </div><br> 
     
     <!-- Footer -->
     <footer>
@@ -148,63 +146,53 @@
         </div>
     </footer>  
       
-    <!-- Scripts -->
+    <!-- CDN Links -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     
-
     <!-- Document Ready --> 
     <script>
       $(document).ready(function() {
-        $("#search").show();
           
+        //Show search screen on start up
+        $("#search").show();
+         
+        //Hide Scren Function
         function hideScreens() {
           $(".content").hide();
         }
-          
+        
+        //Navbar event handler
         $(".nav-link").on("click", function(){
           hideScreens();
           var target = $(this).attr("href");
           $(target).show();
         });
          
-          
+        //Search button event handler  
         $("#searchbtn").on("click", function() {
             $("#list").empty();
             var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?";
             var searchWard = $("#ward").val();
             var searchStatus = $("#status").val();
             var length = $("#length").val();
-            //console.log(searchString);
-            //console.log(searchStatus);
             var url = endpoint + "$limit=" + length + "&status=" + searchStatus + "&ward=" + searchWard;
-            //console.log(url);
             
             $.get(url, function(response) {
                 $("#list").append("<h3>Your search returned " + response.length + " records.</h3><br>");
-                //console.log(response);
-                //$("#cards").append("<h2>Your query returned " + response.length + " records.</h2>");
                 var data = response;
                 $.each(data, function(i,v){
-                    //console.log(i,v);
-                    // clone card
                     var clone = $(".template").clone();
-                    // update values
                     clone.find(".requestNum").text(v.service_request_number);
-                    //clone.find(".template").addClass(v.service_request_number);
-                    //clone.find(".template").attr("data-results", v.service_request_number);
                     clone.find(".address").text(v.street_address);
                     clone.find(".where").text(v.where_is_the_graffiti_located_);
                     clone.find(".surface").text(v.what_type_of_surface_is_the_graffiti_on_);
                     clone.find(".dateCreated").text(v.creation_date);
                     clone.find(".status").text(v.status);
-                    clone.find(".completionDate").text(v.completion_date);
-                    
-                    // remove the class "template" to get it tbe unhidden
-                    clone.removeClass("template")
-                    // insert into DOM
-                    $("#list").append(clone);
+                    clone.find(".completionDate").text(v.completion_date);           
+                    clone.removeClass("template") // remove the class "template" to get it tbe unhidden
+                    $("#list").append(clone); // insert into DOM
                 });
             });
             hideScreens();
@@ -221,26 +209,20 @@
          .register('./sw.js')
          .then(function() { console.log('Service Worker Registered'); });
         }
-
     </script>
     
     <!-- Google Map and Markers --> 
     <script>
-        
         function initMap(x,y,z) {
             var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?";
             var url = endpoint + "$limit=" + z + "&status=" + y + "&ward=" + x;
-            // The location of Chicago
+            // Starup location and centered at Chicago
             var startup = {lat: 41.8781, lng: -87.6298};
-            // The map, centered at Chicago
             var map = new google.maps.Map(
             document.getElementById('map'), {zoom: 10, center: startup});
-            //Get data from ajax call
             $.get(url, function(response){
                 var data = response;
                 $.each(data, function(i,v){
-                    // clone card
-                    //console.log(data);
                     var req = v.service_request_number;
                     var add = v.street_address;
                     var loca = v.where_is_the_graffiti_located_;
@@ -248,7 +230,6 @@
                     var creDat = v.creation_date;
                     var stat = v.status;
                     var comDat = v.completion_date;
-                    
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(parseFloat(v.latitude),parseFloat(v.longitude)),
                         map: map,
@@ -264,12 +245,11 @@
                             });
                             infowindow.open(map, marker);
                     });
-                    //console.log(marker);
                 });
             });
         }
         
-        //call map function given user inputted data
+        //Search button event handler for map markers
         $("#searchbtn").on("click", function() {
             var searchWard = parseInt($("#ward").val());
             var searchStatus = $("#status").val();
