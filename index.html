@@ -7,27 +7,15 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <!--Simple css styling-->
 	<style>
-		.template, .content{
-			display: none;
-			margin: 1em;
-		}
-        .label{
-            font-weight: bold;
-        }
-        .pic{
-            border-radius: 8px;
-            width: 120px;
-        }
-        #map {
-        height: 50%;
-        margin: 1;
-        padding: 1;
-      }
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
+		.template, .content {display: none; margin: 1em;}
+        .label {font-weight: bold;}
+        .pic {border-radius: 8px; width: 120px;}
+        #map {height: 50%; margin: 1; padding: 1;}
+        html, body {height: 100%; margin: 0; padding: 0;}
+        .btn {background-color: springgreen; border-color: black; color:black;}
+        .title {color: white; background-color: skyblue; border-radius: 10px;}
+        .section-heading {font-family: monospace;}
+        .navbar {background-color: whitesmoke;}
 	</style> 
     <title>Graffiti Locater by AL</title>
   </head>
@@ -36,8 +24,8 @@
   <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="nav-link" href="#about">
-            AL
+		<a class="nav-link title" href="#about">
+            Graffiti Locator
         </a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -61,7 +49,7 @@
     <div class="content" id="search">
         
         <!-- User Input Screen -->
-        <h2 class="section-heading text-uppercase">Please Input Ward and Status</h2><br>
+        <h2 class="section-heading">Please Input Ward and Status</h2><br>
         <div class="col-md-12">
             <div class="col-md-2">
                 Ward:
@@ -91,7 +79,7 @@
             </div>
             <br>
             <div class="col-lg-12">
-                <button id="searchbtn" class="btn btn-primary btn-xl text-uppercase" style="border-color: white">Search</button>
+                <button id="searchbtn" class="btn btn-sm text-uppercase">Search</button>
             </div>
         </div>
     </div>
