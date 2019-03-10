@@ -1,10 +1,11 @@
 {
   "name": "Graffiti Removal by AL",
-  "short_name": "G Removal",
+  "short_name": "GR by AL",
   "icons": [ {
         "src": "AL.png",
         "type": "image/png",
-        "sizes": "144x144"
+        "sizes": "144x144",
+        "border-radius": "8px"
       }],
   "start_url": "./index.html",
   "scope": "./",
