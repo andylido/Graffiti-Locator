@@ -1,6 +1,6 @@
 {
-  "name": "Graffiti Removal by AL",
-  "short_name": "GR by AL",
+  "name": "Graffiti Locator by AL",
+  "short_name": "GL by AL",
   "icons": [ {
         "src": "AL.png",
         "type": "image/png",
