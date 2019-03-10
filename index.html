@@ -71,6 +71,8 @@
                     <option value=20>20</option>
                     <option value=30>30</option>
                     <option value=50>50</option>
+                    <option value=75>75</option>
+                    <option value=100>100</option> 
                 </select> 
             </div>
             <br>
@@ -218,10 +220,8 @@
             var map = new google.maps.Map(
             document.getElementById('map'), {zoom: 10, center: startup});
             //Get data from ajax call
-            
             $.get(url, function(response){
                 var data = response;
-                console.log(url);
                 $.each(data, function(i,v){
                     // clone card
                     //console.log(data);
