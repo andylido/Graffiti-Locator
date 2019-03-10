@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel='manifest' href='./manifest.json'>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--Simple css styling-->
 	<style>
 		.template, .content{
 			display: none;
@@ -18,6 +19,16 @@
             border-radius: 8px;
             width: 120px;
         }
+        #map {
+        height: 50%;
+        margin: 1;
+        padding: 1;
+      }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 	</style> 
     <title>Graffiti Locater by AL</title>
   </head>
@@ -88,14 +99,13 @@
     </div>
     
     <div class="content" id="about">
-        <br>
         <h2>Graffiti Locator by AL</h2><br>
         
         <a href="https://github.com/andylido/it202-project2" target="_blank"><img src="AL.png" class="pic"></a>
         <br><br>
         <p>Welcome to Graffiti Locator, this intuitive application allows users to search by ward and status of graffitis to help locate and track them down.</p>
         <div>
-            Directions:
+            Instructions:
             <ul>
                 <li>Input location information in the search tab.</li> 
                 <li>The list tab will display: street address, service request number, graffati location, type of surface, date created, status and completion date (if applicable).</li> 
@@ -124,7 +134,7 @@
 		  </div>
         </div>
       
-    <div class="content container-fluid" id="map" style="height: 500px; width: 500px">
+    <div class="content container-fluid" id="map">
     </div><br>
     
     
