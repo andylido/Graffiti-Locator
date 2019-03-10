@@ -23,7 +23,7 @@
 
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-		<a class="nav-link" href="#about" style="background-image: AL.png;">
+		<a class="nav-link" href="#about">
             AL
         </a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,9 +50,9 @@
         <!-- User Inputs -->
         <h2 class="section-heading text-uppercase">Please Input Ward and Status</h2><br>
         <div class="col-md-12">
-            <div class="col-md-6">
+            <div class="col-md-2">
                 Ward:
-                <input class="form-control" type="number" id="ward" placeholder="i.e. 1234" required="required"/><br>
+                <input class="form-control" type="number" id="ward" placeholder="i.e. 123" required="required"/><br>
             </div>
             <div class="col-md-6">
                 Status:
@@ -60,6 +60,17 @@
                  <select id=status>
                     <option value="Open">Open</option>
                     <option value="Completed">Completed</option>
+                </select> 
+            </div><br>
+            <div class="col-md-6">
+                Results:
+                <br>
+                 <select id=length>
+                    <option value=5>5</option>
+                    <option value=10>10</option>
+                    <option value=20>20</option>
+                    <option value=30>30</option>
+                    <option value=50>50</option>
                 </select> 
             </div>
             <br>
@@ -73,16 +84,19 @@
         <br>
         <h2>Graffiti Locator by AL</h2><br>
         
-        <p>Welcome to Graffiti Locator, this intuitive application allow users to search by ward and status of graffitis to help locate and track down graffitis via google maps.</p> 
+        <p>Welcome to Graffiti Locator, this intuitive application allows users to search by ward and status of graffitis to help locate and track down graffitis via google maps.</p> 
         <p>Input location information in the search tab.</p> 
         <p>The list tab will display: street address, service request number, graffati location, type of surface, date created, status and completion date (if applicable).</p> 
         <p>The map tab will utilize google maps api to locate all graffatis with marker pinpoint for further details.</p>
     </div>
       
-    <div class="content" id="list"></div>
-        <div class="card template" style="width: 20rem;">
-		  <div class="card-body">
-              <span><p class="label">Request:</p></span><span> <p class="requestNum">NA</p></span>
+    <div class="content" id="list">
+        Nothing To show here fam - Try searching up a ward...
+    </div>
+        
+      <div class="card template" style="width: 20rem;">
+          <div class="card-body">
+            <span><p class="label">Request:</p></span><span> <p class="requestNum">NA</p></span>
 			<span><p class="label">Address:</p><p class="address mb-2 text-muted">NA</p></span>
 			<span><p class="label">Location:</p><p class="where">NA</p></span>
             <p class="label">Surface: </p><p class="surface">NA</p>
@@ -95,7 +109,7 @@
         </div>
       
     <div class="content container-fluid" id="map" style="height: 500px; width: 500px">
-    </div>
+    </div><br>
     
     
     <!-- Footer -->
@@ -141,16 +155,17 @@
           
         $("#searchbtn").on("click", function() {
             $("#list").empty();
-            var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
-            
+            var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?";
             var searchWard = $("#ward").val();
             var searchStatus = $("#status").val();
+            var length = $("#length").val();
             //console.log(searchString);
             //console.log(searchStatus);
-            var url = endpoint + "&status=" + searchStatus + "&ward=" + searchWard;
+            var url = endpoint + "$limit=" + length + "&status=" + searchStatus + "&ward=" + searchWard;
             //console.log(url);
             
             $.get(url, function(response) {
+                $("#list").append("<h3>Your search returned " + response.length + " records.</h3><br>");
                 //console.log(response);
                 //$("#cards").append("<h2>Your query returned " + response.length + " records.</h2>");
                 var data = response;
@@ -194,20 +209,22 @@
     <!-- Google Map and Markers --> 
     <script>
         
-        function initMap(x,y) {
-            var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?$limit=5";
-
-            var url = endpoint + "&status=" + y + "&ward=" + x;
+        function initMap(x,y,z) {
+            var endpoint = "https://data.cityofchicago.org/resource/cdmx-wzbz.json?";
+            var url = endpoint + "$limit=" + z + "&status=" + y + "&ward=" + x;
             // The location of Chicago
             var startup = {lat: 41.8781, lng: -87.6298};
             // The map, centered at Chicago
             var map = new google.maps.Map(
             document.getElementById('map'), {zoom: 10, center: startup});
             //Get data from ajax call
+            
             $.get(url, function(response){
                 var data = response;
+                console.log(url);
                 $.each(data, function(i,v){
                     // clone card
+                    //console.log(data);
                     var req = v.service_request_number;
                     var add = v.street_address;
                     var loca = v.where_is_the_graffiti_located_;
@@ -219,24 +236,29 @@
                     var marker = new google.maps.Marker({
                         position: new google.maps.LatLng(parseFloat(v.latitude),parseFloat(v.longitude)),
                         map: map,
-                        title: add + ' - ' + stat
+                        title: add + ' - ' + stat //marker hover information pop up
                     });
-                    var contentString = req + add + loca + surf + creDat + stat + comDat;
-                    // To add the marker to the map, call setMap();
+                    
+                    //Content for pop up display on marker click
+                    var contentString = "Request: "+req+"<br>" + "Address: "+add+"<br>" + "Location "+loca+"<br>" + "Surface: "+surf+"<br>" + "Date Created: "+creDat+"<br>" + "Status: "+stat+"<br>" + "Date Completed: "+comDat;
+
                     google.maps.event.addListener(marker, 'click', function() {
                             infowindow = new google.maps.InfoWindow({
                                 content: contentString
                             });
                             infowindow.open(map, marker);
-                    });     
+                    });
+                    //console.log(marker);
                 });
             });
         }
         
+        //call map function given user inputted data
         $("#searchbtn").on("click", function() {
             var searchWard = parseInt($("#ward").val());
             var searchStatus = $("#status").val();
-            initMap(searchWard, searchStatus);
+            var length = $("#length").val();
+            initMap(searchWard, searchStatus, length);
         });
     </script>
 
