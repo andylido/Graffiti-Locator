@@ -1,8 +1,8 @@
 {
-  "name": "Advance Locations",
-  "short_name": "AL",
+  "name": "Graffiti Removal",
+  "short_name": "G Removal",
   "icons": [ {
-        "src": "./AL.png",
+        "src": "AL.png",
         "type": "image/png",
         "sizes": "144x144"
       }],

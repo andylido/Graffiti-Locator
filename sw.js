@@ -15,21 +15,26 @@
  */
 
 
-version = '1.0';
+self.addEventListener('install', function(event) {
+  // Perform install steps
+});
 
-let cacheName = 'pwaBasic_' + version;
+var CACHE_NAME = 'GRemoval';
+var urlsToCache = [
+  '/',
+  '/styles/main.css',
+  '/script/main.js'
+];
 
-self.addEventListener('install', e => {
-  let timeStamp = Date.now();
-  e.waitUntil(
-    caches.open(cacheName).then(cache => {
-      return cache.addAll([
-        `./`,
-        `./index.html`
-      ])
-      .then(() => self.skipWaiting());
-    })
-  )
+self.addEventListener('install', function(event) {
+  // Perform install steps
+  event.waitUntil(
+    caches.open(CACHE_NAME)
+      .then(function(cache) {
+        console.log('Opened cache');
+        return cache.addAll(urlsToCache);
+      })
+  );
 });
 
 // https://stackoverflow.com/questions/41009167/what-is-the-use-of-self-clients-claim
