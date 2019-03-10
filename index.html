@@ -14,11 +14,12 @@
         html, body, p {height: 100%; margin: 0; padding: 0;}
         .btn {background-color: mediumseagreen; border-color: whitesmoke; color:white;}
         .title {color: white; background-color: skyblue; border-radius: 5px;}
-        .section-heading, h5 {font-family: monospace;}
-        .navbar {background-color: dimgray!important;}
-        .navbtn {color: white!important;}
+        .section-heading, h5, h3 {font-family: monospace;}
+        .navbar {background-color: dimgray;}
+        .navbtn {color: white!important; margin: 0.1em; font-family: monospace; font-size: 15px;}
         body {background-color: aliceblue}
-        .card {background-color:antiquewhite; border-radius: 20px;}
+        .card {background-color:lightgoldenrodyellow; border-radius: 20px; width: 20rem; margin: 2em;}
+        .menu {color: aliceblue; font-family:monospace}
 	</style> 
     <title>Graffiti Locater by AL</title>
   </head>
@@ -26,12 +27,12 @@
     
   <body>
     <!-- Navigation Bar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg">
 		<a class="nav-link title" href="#about">
             Graffiti Locator
         </a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <span class=menu>| | |</span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
@@ -108,10 +109,10 @@
     </div>
         
     <!-- Card Tempate -->
-    <div class="card template" style="width: 20rem;">
+    <div class="card template">
         <div class="card-body">
             <p class="label">Request:</p><p class="requestNum">NA</p>
-            <p class="label">Address:</p><p class="address mb-2 text-muted">NA</p>
+            <p class="label">Address:</p><p class="address">NA</p>
             <p class="label">Location:</p><p class="where">NA</p>
             <p class="label">Surface: </p><p class="surface">NA</p>
             <p class="label">Date Created:</p><p class="dateCreated">NA</p>
@@ -169,7 +170,7 @@
             var url = endpoint + "$limit=" + length + "&status=" + searchStatus + "&ward=" + searchWard;
             
             $.get(url, function(response) {
-                $("#list").append("<h3>Your search returned " + response.length + " records.</h3><br>");
+                $("#list").append("<h3>Your search returned " + response.length + " records.</h3>");
                 var data = response;
                 $.each(data, function(i,v){
                     var clone = $(".template").clone();
